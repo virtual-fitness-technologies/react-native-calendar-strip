@@ -35,13 +35,12 @@ export default class CalendarScroller extends Component {
     this.timeoutResetPositionId = null;
 
     this.updateLayout = renderDayParams => {
-      const itemHeight = renderDayParams.size;
-      const itemWidth = itemHeight + renderDayParams.marginHorizontal * 2;
+      const itemHeight = renderDayParams.dayComponentHeight;
+      const itemWidth = renderDayParams.size + renderDayParams.marginHorizontal * 2;
 
       const layoutProvider = new LayoutProvider(
         index => 0, // only 1 view type
         (type, dim) => {
-          // Square, plus horizontal margin
           dim.width = itemWidth;
           dim.height = itemHeight;
         }
@@ -246,7 +245,10 @@ export default class CalendarScroller extends Component {
     }
     return (
       <View
-        style={{ height: this.state.itemHeight, flex: 1 }}
+        style={{
+          height: this.state.itemHeight,
+          flex: 1,
+        }}
         onLayout={this.onLayout}
       >
         <RecyclerListView
